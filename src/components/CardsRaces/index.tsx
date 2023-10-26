@@ -10,7 +10,7 @@ type CardRaceProps = {
 export function CardRace(props: CardRaceProps) {
   const { icon = 'dog', text = 'Cachorro' } = props;
   return (
-    <View style={[styles.wrapper, styles.shadowProp]}>
+    <View style={[styles.wrapper]}>
       <View style={styles.circular_icon}>
         <FontAwesome5 name={icon} size={24} color="black" />
       </View>
@@ -38,12 +38,11 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: 'white',
     borderRadius: 50,
-    flexDirection: 'row',
+    flexDirection: 'column',
     gap: 10,
-    height: 50,
     padding: 6,
-    width: 125,
   },
 });

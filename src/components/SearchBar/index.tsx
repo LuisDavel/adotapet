@@ -33,7 +33,7 @@ export default function SearchBar({ placeholder }: SearchBar) {
       <FontAwesome5
         name="search"
         size={18}
-        color={isFocused ? '#2563eb' : 'orange'}
+        color={isFocused ? '#2563eb' : 'grey'}
       />
       <TextInput
         onBlur={handleIsFocus}

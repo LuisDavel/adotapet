@@ -1,0 +1,18 @@
+{
+  "cli": {
+    "version": ">= 4.1.2",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "preview": {
+      "android": {
+        "distribution":"internal",
+        "autoIncrement": true
+      },
+      "ios": {
+        "simulator": true,
+        "distribution": "internal"
+      }
+    }
+  }
+}

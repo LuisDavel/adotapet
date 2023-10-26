@@ -10,56 +10,12 @@ import {
 import { CardPets } from '@/components/CardPets';
 import { Header } from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
-import { Link, router, useNavigation } from 'expo-router';
+import { categories, pets } from '@/utils/data';
+import { Link, router } from 'expo-router';
 
 import { CardRace } from '../../components/CardsRaces';
 
 export default function Home() {
-  const categories = [
-    {
-      title: 'Cachorro',
-      icon: 'dog',
-    },
-    {
-      title: 'Gato',
-      icon: 'cat',
-    },
-    {
-      title: 'Passaro',
-      icon: 'kiwi-bird',
-    },
-  ];
-
-  const pets = [
-    {
-      id: 1,
-      name: 'Puppy',
-      location: 'Criciuma - SC',
-      favorite: true,
-      gender: 'female',
-      image:
-        'https://th.bing.com/th/id/OIP.N37bMTixTGosvzm5ElAWyAHaFj?pid=ImgDet&rs=1',
-    },
-    {
-      id: 2,
-      name: 'Fuppy',
-      location: 'Joinville - SC',
-      favorite: false,
-      gender: 'male',
-      image:
-        'https://cobasi.vteximg.com.br/arquivos/ids/265361/Pinscher.jpg?v=637021869369770000',
-    },
-    {
-      id: 3,
-      name: 'Poppy',
-      location: 'Florianópolis - SC',
-      favorite: false,
-      gender: 'male',
-      image:
-        'https://s2.glbimg.com/-P6PLZnUFUVfg8S-6RZl3Lllaak=/1200x630/s.glbimg.com/jo/g1/f/original/2015/01/05/cao-obeso3.jpg',
-    },
-  ];
-
   const handleFavorite = (value: number, isFavorite: boolean) => {
     const filter = pets.find((item) => item.id == value);
     return filter ? (filter.favorite = !isFavorite) : false;
@@ -68,18 +24,21 @@ export default function Home() {
   return (
     <View style={styles.wrapper}>
       <Header.Wrapper>
-        <Header.Menu />
+        <Header.Icon
+          name={'radar'}
+          onPress={() => router.push(`/(sorted)/sorted`)}
+        />
         <Header.Location city="Criciuma" state="SC" />
-        <Header.Avatar userImage={''} />
+        <Header.Icon
+          name={'bell'}
+          onPress={() => router.push(`/(sorted)/sorted`)}
+        />
       </Header.Wrapper>
       <Text style={styles.title}> Encontre um novo amigo </Text>
       <SearchBar placeholder="Buscar" />
       <View style={styles.YStack}>
         <Text style={[styles.subtitle]}>Raças</Text>
-        <Text onPress={() => router.push('/modal')} style={styles.other_text}>
-          {' '}
-          veja mais{' '}
-        </Text>
+        <Text style={styles.other_text}> veja mais </Text>
       </View>
       <View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -112,14 +71,16 @@ export default function Home() {
         renderItem={({ item }) => {
           return (
             <View>
-              <CardPets.Wrapper>
+              <CardPets.Wrapper onPress={() => router.push(`/pet/${item.id}`)}>
                 <CardPets.Favorite
                   onPress={() => handleFavorite(item.id, item.favorite)}
                   isFavorite={item.favorite}
-                  src={item.image}
                 />
-                <CardPets.Image src={item.image} />
-                <CardPets.Title gender={item.gender} text={item.name} />
+                <CardPets.Image src={item.image[0].image} />
+                <CardPets.Title
+                  gender={item.gender as string}
+                  text={item.name}
+                />
                 <CardPets.Location text={item.location} />
               </CardPets.Wrapper>
             </View>

@@ -1,9 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
-
 export interface CardPetsTypes {
   children?: React.ReactNode;
-  gender?: keyof typeof Ionicons.glyphMap | string;
+  color?: string;
   src?: string;
-  text?: string;
+  icon?: keyof typeof Ionicons.glyphMap;
   isFavorite?: boolean;
 }

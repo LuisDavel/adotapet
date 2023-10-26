@@ -1,14 +1,45 @@
-import { Keyboard, TouchableWithoutFeedback } from 'react-native';
+import {
+  Keyboard,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 
-import { Slot } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
+import { Ionicons } from '@expo/vector-icons';
+import { Stack, router } from 'expo-router';
 
-export function Layout() {
+export default function Layout() {
   return (
     <>
-      <StatusBar style="dark" backgroundColor="orange" />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <Slot />
+        <View style={{ flex: 1 }}>
+          <Stack
+            screenOptions={{
+              animation: 'slide_from_right',
+              headerShown: false,
+            }}
+          >
+            <Stack.Screen name="(home)/home" />
+            <Stack.Screen
+              name="(home)/pet/[id]"
+              options={{
+                headerLeft: () => {
+                  return (
+                    <TouchableOpacity onPress={() => router.back()}>
+                      <Ionicons
+                        name="arrow-back-outline"
+                        size={24}
+                        color="orange"
+                      />
+                    </TouchableOpacity>
+                  );
+                },
+                headerShown: true,
+                title: '',
+              }}
+            />
+          </Stack>
+        </View>
       </TouchableWithoutFeedback>
     </>
   );
