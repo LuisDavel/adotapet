@@ -58,13 +58,16 @@ export default function Home() {
           Adote um{' '}
           <Text style={[styles.subtitle, { color: 'orange' }]}>Pet</Text>
         </Text>
-        <Link href={'/'} asChild>
+        <Link href={'/category/dog'} asChild>
           <Text style={styles.other_text}> veja mais </Text>
         </Link>
       </View>
       <FlatList
         data={pets}
         horizontal
+        centerContent
+        snapToAlignment="center"
+        scrollEventThrottle={16}
         style={styles.card_pets}
         showsHorizontalScrollIndicator={false}
         ItemSeparatorComponent={() => <View style={{ width: 20 }} />}

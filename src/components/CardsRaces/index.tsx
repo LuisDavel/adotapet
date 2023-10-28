@@ -43,6 +43,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     flexDirection: 'column',
     gap: 10,
-    padding: 6,
+    paddingVertical: 6,
   },
 });

@@ -8,6 +8,7 @@ import { pets } from '@/utils/data';
 import { router } from 'expo-router';
 
 export default function Sorted() {
+  // @ts-ignore
   const swipeRef = useRef<Swiper<T>>(null);
   return (
     <View style={styles.wrapper}>
@@ -54,6 +55,7 @@ export default function Sorted() {
           }}
           animateCardOpacity
           verticalSwipe={false}
+          onTapCard={(index) => router.push(`/pet/${pets[index].id}`)}
           renderCard={(card) => {
             return (
               <View>

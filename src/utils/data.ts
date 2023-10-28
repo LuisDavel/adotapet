@@ -20,7 +20,10 @@ export const pets = [
     location: 'Criciuma - SC',
     favorite: true,
     gender: 'female',
+    type: 'dog',
     age: 4,
+    race: 'Lulu da Pulmeranea',
+    weight: 8,
     comportment: 'Bravo',
     image: [
       {
@@ -48,6 +51,9 @@ export const pets = [
     location: 'Joinville - SC',
     favorite: false,
     gender: 'male',
+    type: 'dog',
+    weight: 8,
+    race: 'Lulu da Pulmeranea',
     image: [
       {
         id: 1,
@@ -72,6 +78,9 @@ export const pets = [
     location: 'Florianópolis - SC',
     favorite: false,
     gender: 'male',
+    type: 'dog',
+    race: 'Lulu da Pulmeranea',
+    weight: 8,
     image: [
       {
         id: 1,

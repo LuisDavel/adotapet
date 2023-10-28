@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
   },
   image: {
     height: 200,
-    width: 140,
+    width: 200,
   },
   text: {
     alignSelf: 'flex-start',

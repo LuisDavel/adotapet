@@ -41,7 +41,7 @@ export default function CardSwipePetsImage({
         <Ionicons
           name={gender}
           size={30}
-          color={gender == 'female' ? 'pink' : 'blue'}
+          color={gender == 'female' ? '#c85f9a' : '#49aae1'}
         />
       </View>
     </>
