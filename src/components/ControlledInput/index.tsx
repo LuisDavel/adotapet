@@ -1,23 +1,20 @@
 import React, { useCallback, useState } from 'react';
 import { Controller, Control } from 'react-hook-form';
-import { StyleSheet, Text, TextInputProps } from 'react-native';
+import { TextInput, TextInputProps, StyleSheet, Text } from 'react-native';
 
-import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<any>;
   name: string;
   label: string;
-  style?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onValueChanged?: (val: any) => void;
 } & TextInputProps;
 
-export function ControlledInputModal({
+export function ControlledInput({
   onValueChanged,
   control,
   name,
-  style,
   label,
   ...props
 }: Props) {
@@ -27,7 +24,6 @@ export function ControlledInputModal({
     setIsFocused((prev) => !prev);
   }, []);
   const focus = isFocused ? styles.focus : null;
-
   return (
     <Controller
       name={name}
@@ -35,10 +31,10 @@ export function ControlledInputModal({
       render={({ field: { onChange, value } }) => (
         <>
           <Text>{label}</Text>
-          <BottomSheetTextInput
+          <TextInput
+            style={[styles.input, focus]}
             onFocus={handleFocus}
             onBlur={handleFocus}
-            style={[styles.input, focus, style]}
             onChangeText={(val) => {
               onChange(val);
               if (onValueChanged) {

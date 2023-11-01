@@ -9,10 +9,10 @@ import {
   TouchableOpacity,
   Dimensions,
   TextInput,
-  Button,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
+import { ControlledInput } from '@/components/ControlledInput';
 import { ControlledInputModal } from '@/components/ControlledInputModal';
 import Modal, { TComportModal } from '@/components/Modal';
 import { complaintSchema } from '@/schema/complaintSchema';
@@ -22,6 +22,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
+import Button from '@/components/Button';
 
 const { width } = Dimensions.get('window');
 
@@ -41,7 +42,7 @@ export default function Profile() {
 
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.handlePresentModalPress();
-  }, []);
+  }, [bottomSheetModalRef]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -169,27 +170,24 @@ export default function Profile() {
 
       <Modal ref={bottomSheetModalRef} snapPoints={snapPoints}>
         <View style={styles.container_modal}>
-          <View style={{ gap: 6 }}>
-            <Text>Informe seu nome: </Text>
-            <ControlledInputModal control={control} name="name" />
-          </View>
-          <View style={{ gap: 6 }}>
-            <Text>Informe seu email: </Text>
-            <ControlledInputModal
-              inputMode="email"
-              control={control}
-              name="email"
-            />
-          </View>
-          <View style={{ gap: 6 }}>
-            <Text>Motivo da denuncia: </Text>
-            <ControlledInputModal
-              multiline
-              control={control}
-              name="observation"
-            />
-          </View>
-          <Button title="Teste" onPress={handleSubmit(onSubmit)} />
+          <ControlledInput
+            label="Informe seu nome:"
+            control={control}
+            name="name"
+          />
+          <ControlledInput
+            label="Informe seu email:"
+            inputMode="email"
+            control={control}
+            name="email"
+          />
+          <ControlledInputModal
+            label="Motivo da denuncia:"
+            multiline
+            control={control}
+            name="observation"
+          />
+          <Button text="Teste" onPress={handleSubmit(onSubmit)} />
         </View>
       </Modal>
     </View>
@@ -227,9 +225,8 @@ const styles = StyleSheet.create({
   },
   container_modal: {
     flex: 1,
-    justifyContent: 'space-around',
-    paddingHorizontal: 20,
-    paddingVertical: 20,
+    gap: 6,
+    padding: 20,
   },
   content: {
     flex: 1,

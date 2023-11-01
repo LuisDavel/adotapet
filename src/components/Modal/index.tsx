@@ -6,6 +6,7 @@ import {
   useImperativeHandle,
   useRef,
 } from 'react';
+import { Keyboard, TouchableWithoutFeedback } from 'react-native';
 
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet';
 
@@ -66,7 +67,9 @@ const Modal: ForwardRefRenderFunction<TComportModal, ModalT> = (
       snapPoints={snapPoints}
       enablePanDownToClose={true}
     >
-      {children}
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        {children}
+      </TouchableWithoutFeedback>
     </BottomSheetModal>
   );
 };
