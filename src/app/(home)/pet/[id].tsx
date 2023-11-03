@@ -12,31 +12,34 @@ import {
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
+import Button from '@/components/Button';
 import { ControlledInput } from '@/components/ControlledInput';
 import { ControlledInputModal } from '@/components/ControlledInputModal';
 import Modal, { TComportModal } from '@/components/Modal';
-import { complaintSchema } from '@/schema/complaintSchema';
+import {
+  TSchemaComplaintSchema,
+  complaintSchema,
+} from '@/schema/complaintSchema';
 import { pets } from '@/utils/data';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
-import Button from '@/components/Button';
 
 const { width } = Dimensions.get('window');
 
 export default function Profile() {
   const navigation = useNavigation();
 
-  const methods = useForm({
+  const methods = useForm<TSchemaComplaintSchema>({
     resolver: zodResolver(complaintSchema),
   });
 
-  const { control, handleSubmit } = methods;
+  const { control, handleSubmit, formState } = methods;
 
   const { id } = useLocalSearchParams();
-  const snapPoints = useMemo(() => ['25%', '50%'], []);
+  const snapPoints = useMemo(() => ['25%', '60%'], []);
   const filter = pets.find((item) => item.id === Number(id));
   const bottomSheetModalRef = useRef<TComportModal>(null);
 
@@ -59,7 +62,8 @@ export default function Profile() {
     });
   }, [navigation]);
 
-  const onSubmit = () => {
+  const onSubmit = (data: TSchemaComplaintSchema) => {
+    const body = { ...data };
     return;
   };
 
@@ -174,20 +178,23 @@ export default function Profile() {
             label="Informe seu nome:"
             control={control}
             name="name"
+            error={formState.errors && formState.errors.name?.message}
           />
           <ControlledInput
             label="Informe seu email:"
             inputMode="email"
             control={control}
             name="email"
+            error={formState.errors && formState.errors.email?.message}
           />
           <ControlledInputModal
             label="Motivo da denuncia:"
             multiline
             control={control}
+            error={formState.errors && formState.errors.observation?.message}
             name="observation"
           />
-          <Button text="Teste" onPress={handleSubmit(onSubmit)} />
+          <Button text="Reportar" onPress={handleSubmit(onSubmit)} />
         </View>
       </Modal>
     </View>
@@ -225,7 +232,7 @@ const styles = StyleSheet.create({
   },
   container_modal: {
     flex: 1,
-    gap: 6,
+    gap: 10,
     padding: 20,
   },
   content: {

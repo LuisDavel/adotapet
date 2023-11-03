@@ -65,7 +65,7 @@ const Modal: ForwardRefRenderFunction<TComportModal, ModalT> = (
       index={1}
       backdropComponent={handleRenderBackDrop}
       snapPoints={snapPoints}
-      enablePanDownToClose={true}
+      enableDismissOnClose
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         {children}

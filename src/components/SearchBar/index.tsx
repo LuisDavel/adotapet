@@ -1,13 +1,23 @@
 import { useCallback, useRef, useState } from 'react';
-import { TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from 'react-native';
 
 import { FontAwesome5 } from '@expo/vector-icons';
 
-interface SearchBar {
+type TSearchBar = {
   placeholder: string;
-}
+  setValue: ([key]: string) => void;
+} & TouchableOpacityProps;
 
-export default function SearchBar({ placeholder }: SearchBar) {
+export default function SearchBar({
+  placeholder,
+  setValue,
+  ...props
+}: TSearchBar) {
   const inputRef = useRef<TextInput>(null);
   const [isFocused, setIsFocused] = useState(false);
 
@@ -29,6 +39,7 @@ export default function SearchBar({ placeholder }: SearchBar) {
       activeOpacity={1}
       onPress={handleFocus}
       style={styleFocus}
+      {...props}
     >
       <FontAwesome5
         name="search"
@@ -41,6 +52,7 @@ export default function SearchBar({ placeholder }: SearchBar) {
         ref={inputRef}
         style={styles.input}
         placeholder={placeholder}
+        onChangeText={setValue}
       />
     </TouchableOpacity>
   );

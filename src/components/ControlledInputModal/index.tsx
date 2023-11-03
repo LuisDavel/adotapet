@@ -8,6 +8,7 @@ type Props = {
   control: Control<any>;
   name: string;
   label: string;
+  error?: string | null | undefined;
   style?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onValueChanged?: (val: any) => void;
@@ -19,6 +20,7 @@ export function ControlledInputModal({
   name,
   style,
   label,
+  error,
   ...props
 }: Props) {
   const [isFocused, setIsFocused] = useState(false);
@@ -48,6 +50,7 @@ export function ControlledInputModal({
             value={value}
             {...props}
           />
+          {error && <Text style={{ color: 'red' }}>*{error}</Text>}
         </>
       )}
     />

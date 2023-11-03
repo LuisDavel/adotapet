@@ -24,7 +24,7 @@ export default function Sorted() {
       <CardSwipePet.Wrapper>
         <Swiper
           ref={swipeRef}
-          cards={pets}
+          cards={pets.slice(0, 6)}
           backgroundColor="transparent"
           onSwipedRight={() => {
             console.log('Direita');

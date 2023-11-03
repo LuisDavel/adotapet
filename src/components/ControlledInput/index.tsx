@@ -7,6 +7,7 @@ type Props = {
   control: Control<any>;
   name: string;
   label: string;
+  error?: string | null | undefined;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onValueChanged?: (val: any) => void;
 } & TextInputProps;
@@ -15,6 +16,7 @@ export function ControlledInput({
   onValueChanged,
   control,
   name,
+  error,
   label,
   ...props
 }: Props) {
@@ -44,6 +46,7 @@ export function ControlledInput({
             value={value}
             {...props}
           />
+          {error && <Text style={{ color: 'red' }}>*{error}</Text>}
         </>
       )}
     />

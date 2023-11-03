@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react';
 import {
   Text,
   View,
@@ -16,10 +17,19 @@ import { Link, router } from 'expo-router';
 import { CardRace } from '../../components/CardsRaces';
 
 export default function Home() {
-  const handleFavorite = (value: number, isFavorite: boolean) => {
+  const [value, setValue] = useState('');
+
+  const handleFavorite = useCallback((value: number, isFavorite: boolean) => {
     const filter = pets.find((item) => item.id == value);
     return filter ? (filter.favorite = !isFavorite) : false;
-  };
+  }, []);
+
+  const handleSearch = useCallback(() => {
+    return router.push({
+      params: { city: value || ' ' },
+      pathname: `/category/city`,
+    });
+  }, [value]);
 
   return (
     <View style={styles.wrapper}>
@@ -28,17 +38,22 @@ export default function Home() {
           name={'radar'}
           onPress={() => router.push(`/(sorted)/sorted`)}
         />
-        <Header.Location city="Criciuma" state="SC" />
+        <Header.Location city="Cricíuma" state="SC" />
         <Header.Icon
-          name={'bell'}
-          onPress={() => router.push(`/(sorted)/sorted`)}
+          name={'heart'}
+          color="red"
+          onPress={() => router.push(`/category/fav`)}
         />
       </Header.Wrapper>
       <Text style={styles.title}> Encontre um novo amigo </Text>
-      <SearchBar placeholder="Buscar" />
+      <SearchBar
+        setValue={setValue}
+        placeholder="Buscar"
+        onPress={handleSearch}
+      />
       <View style={styles.YStack}>
         <Text style={[styles.subtitle]}>Raças</Text>
-        <Text style={styles.other_text}> veja mais </Text>
+        {/* <Text style={styles.other_text}> veja mais </Text> */}
       </View>
       <View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -46,7 +61,8 @@ export default function Home() {
             <TouchableOpacity
               key={index}
               activeOpacity={0.8}
-              style={{ paddingHorizontal: 3, paddingVertical: 3 }}
+              onPress={() => router.push(`/category/${item.icon}`)}
+              style={{ paddingRight: 20 }}
             >
               <CardRace icon={item.icon} text={item.title} />
             </TouchableOpacity>
@@ -58,12 +74,12 @@ export default function Home() {
           Adote um{' '}
           <Text style={[styles.subtitle, { color: 'orange' }]}>Pet</Text>
         </Text>
-        <Link href={'/category/dog'} asChild>
+        <Link href={'/category/all'} asChild>
           <Text style={styles.other_text}> veja mais </Text>
         </Link>
       </View>
       <FlatList
-        data={pets}
+        data={pets.slice(0, 5)}
         horizontal
         centerContent
         snapToAlignment="center"

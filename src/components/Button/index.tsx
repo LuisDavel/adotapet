@@ -7,40 +7,47 @@ import {
 
 type ButtonProps = {
   text: string;
-  color?: {
-    backgroundColor: string;
-    color?: string;
-  };
+  alert?: string;
   isLoading?: boolean;
 } & TouchableOpacityProps;
 
 export default function Button({
   isLoading,
   text,
-  color,
+  alert,
   ...props
 }: ButtonProps) {
-  const background = color && color.backgroundColor;
-  const colorText = color && color.color;
+  const background = alert ? styles.alert_button : null;
 
   return (
     <TouchableOpacity
       disabled={isLoading}
-      style={[styles.button, { backgroundColor: background }]}
-      activeOpacity={0.7}
+      style={[styles.button, background]}
+      activeOpacity={0.9}
       {...props}
     >
       {isLoading ? (
         <ActivityIndicator size="small" color={'white'} />
       ) : (
-        <Text style={{ color: colorText }}>{text}</Text>
+        <Text style={styles.text}>{text}</Text>
       )}
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
+  alert_button: {
+    backgroundColor: 'red',
+  },
   button: {
-    backgroundColor: '#2563eb',
+    alignItems: 'center',
+    backgroundColor: 'black',
+    borderRadius: 10,
+    padding: 12,
+  },
+  text: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '500',
   },
 });
